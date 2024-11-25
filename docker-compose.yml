@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+
+  python-service:
+    build: ./python-service
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+    restart: on-failure
+
+networks:
+  mynetwork:
+    driver: bridge
